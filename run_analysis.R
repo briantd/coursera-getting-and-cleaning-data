@@ -50,7 +50,6 @@ activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")
 
 # TEST
 test_data <- read.table("./UCI HAR Dataset/test/X_test.txt")
-head(test_data)
 test_activity <- read.table("./UCI HAR Dataset/test/y_test.txt")
 test_subject <- read.table("./UCI HAR Dataset/test/subject_test.txt")
 
@@ -61,8 +60,8 @@ train_subject <- read.table("./UCI HAR Dataset/train/subject_train.txt")
 
 # Stitch all observations for data, activity, and subjects
 all_data <- rbind(test_data, train_data)
-all_activity <- rbind( test_activity, train_activity)
-all_subject <- rbind( test_subject, train_subject)
+all_activity <- rbind(test_activity, train_activity)
+all_subject <- rbind(test_subject, train_subject)
 
 # Fix labels on data
 names(all_data) <- features$V2
@@ -79,10 +78,12 @@ names(all_subject) <- c("subject")
 data_names <- names(all_data)
 keeper_data_names <- grep("std|mean", data_names)
 keeper_data <- all_data[keeper_data_names]
-
 wearable_data <- cbind(keeper_data, all_subject, all_activity)
+
+# Subjects should be factors
 wearable_data$subject <- as.factor(wearable_data$subject)
 
+# Confirm
 summary(wearable_data)
 head(wearable_data)
 str(wearable_data)
@@ -98,8 +99,9 @@ names(wearable_data)<-gsub("Mag", "Magnitude", names(wearable_data))
 names(wearable_data)<-gsub("BodyBody", "Body", names(wearable_data))
 
 str(wearable_data)
-
 head(wearable_data)
+
+# Create the aggregated tidy data set
 tidy_data = aggregate(wearable_data, by=list(activity_group=wearable_data$activity, subject_group=wearable_data$subject), mean)
 str(tidy_data)
 tidy_data <- tidy_data %>% select(-subject, -activity)
