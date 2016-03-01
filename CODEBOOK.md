@@ -1,15 +1,200 @@
-## Overview
-The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis. You will be graded by your peers on a series of yes/no questions related to the project. You will be required to submit: 1) a tidy data set as described below, 2) a link to a Github repository with your script for performing the analysis, and 3) a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected.
+## Synopsis
 
-One of the most exciting areas in all of data science right now is wearable computing - see for example this article . Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
+Document describes the data provided in tiny_data.txt, and the process used to develop it.
+
+## Overview
+
+The data provided in tiny_data.txt is derived from a UCI data set tracking the accelerometers readings from 30  participants as they perfomed one of 6 activities while wearing a smartphone.  Activities were manually labeled: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING.
+
+From the UCI data sets, only variables of type Mean or Std (Standard Deviation) were kept, the others were discarded.  Furthermore, as there were multiple observations for each activity performed by a subject, the data was summarized by calculating the mean average for each activity and subject.
+
+## Fields included in tiny_data.txt
+
+activity_group <-- activity label representing this group
+subject_group <-- subject id representing this group
+timeBodyAccelerationMean-X
+timeBodyAccelerationMean-Y
+timeBodyAccelerationMean-Z
+timeBodyAccelerationStd-X
+timeBodyAccelerationStd-Y
+timeBodyAccelerationStd-Z
+timeGravityAccelerationMean-X
+timeGravityAccelerationMean-Y
+timeGravityAccelerationMean-Z
+timeGravityAccelerationStd-X
+timeGravityAccelerationStd-Y
+timeGravityAccelerationStd-Z
+timeBodyAccelerationJerkMean-X
+timeBodyAccelerationJerkMean-Y
+timeBodyAccelerationJerkMean-Z
+timeBodyAccelerationJerkStd-X
+timeBodyAccelerationJerkStd-Y
+timeBodyAccelerationJerkStd-Z
+timeBodyGyroMean-X
+timeBodyGyroMean-Y
+timeBodyGyroMean-Z
+timeBodyGyroStd-X
+timeBodyGyroStd-Y
+timeBodyGyroStd-Z
+timeBodyGyroJerkMean-X
+timeBodyGyroJerkMean-Y
+timeBodyGyroJerkMean-Z
+timeBodyGyroJerkStd-X
+timeBodyGyroJerkStd-Y
+timeBodyGyroJerkStd-Z
+timeBodyAccelerationMagnitudeMean
+timeBodyAccelerationMagnitudeStd
+timeGravityAccelerationMagnitudeMean
+timeGravityAccelerationMagnitudeStd
+timeBodyAccelerationJerkMagnitudeMean
+timeBodyAccelerationJerkMagnitudeStd
+timeBodyGyroMagnitudeMean
+timeBodyGyroMagnitudeStd
+timeBodyGyroJerkMagnitudeMean
+timeBodyGyroJerkMagnitudeStd
+frequencyBodyAccelerationMean-X
+frequencyBodyAccelerationMean-Y
+frequencyBodyAccelerationMean-Z
+frequencyBodyAccelerationStd-X
+frequencyBodyAccelerationStd-Y
+frequencyBodyAccelerationStd-Z
+frequencyBodyAccelerationMeanFreq-X
+frequencyBodyAccelerationMeanFreq-Y
+frequencyBodyAccelerationMeanFreq-Z
+frequencyBodyAccelerationJerkMean-X
+frequencyBodyAccelerationJerkMean-Y
+frequencyBodyAccelerationJerkMean-Z
+frequencyBodyAccelerationJerkStd-X
+frequencyBodyAccelerationJerkStd-Y
+frequencyBodyAccelerationJerkStd-Z
+frequencyBodyAccelerationJerkMeanFreq-X
+frequencyBodyAccelerationJerkMeanFreq-Y
+frequencyBodyAccelerationJerkMeanFreq-Z
+frequencyBodyGyroMean-X
+frequencyBodyGyroMean-Y
+frequencyBodyGyroMean-Z
+frequencyBodyGyroStd-X
+frequencyBodyGyroStd-Y
+frequencyBodyGyroStd-Z
+frequencyBodyGyroMeanFreq-X
+frequencyBodyGyroMeanFreq-Y
+frequencyBodyGyroMeanFreq-Z
+frequencyBodyAccelerationMagnitudeMean
+frequencyBodyAccelerationMagnitudeStd
+frequencyBodyAccelerationMagnitudeMeanFreq
+frequencyBodyAccelerationJerkMagnitudeMean
+frequencyBodyAccelerationJerkMagnitudeStd
+frequencyBodyAccelerationJerkMagnitudeMeanFreq
+frequencyBodyGyroMagnitudeMean
+frequencyBodyGyroMagnitudeStd
+frequencyBodyGyroMagnitudeMeanFreq
+frequencyBodyGyroJerkMagnitudeMean
+frequencyBodyGyroJerkMagnitudeStd
+frequencyBodyGyroJerkMagnitudeMeanFreq"
+
+## Process for deriving tiny_data.txt
+
+### Step 1: Retrieve raw data zipfile
+
+The file UCI_HAR_Dataset.zip will be downloaded and stored in a class directory.
+
+```
+setwd("~/Foundry/coursera/Cleaning_Data")
+file_url = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(file_url, "UCI_HAR_Dataset.zip", method="curl")
+```
+
+### Step 2: Unzip raw data zipefile
+
+The file UCI_HAR_Dataset.zip will be unzipped into a direcotry called "UCI HAR Dataset" with numerous raw data files.
+
+```
+unzip( zipfile="UCI_HAR_Dataset.zip")
+```
+
+### Step 3: Create data frames
+
+The following files will have a data frame created for them: ./activity_labels.txt ./features.txt ./train/subject_train.txt ./train/X_train.txt ./train/y_train.txt ./test/subject_test.txt ./test/X_test.txt ./test/y_test.txt
+
+```
+# Feature vector labels
+features <- read.table("./UCI HAR Dataset/features.txt")
+
+# Activity labels
+activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")
+
+# TEST
+test_data <- read.table("./UCI HAR Dataset/test/X_test.txt")
+test_activity <- read.table("./UCI HAR Dataset/test/y_test.txt")
+test_subject <- read.table("./UCI HAR Dataset/test/subject_test.txt")
+
+# TRAIN
+train_data <- read.table("./UCI HAR Dataset/train/X_train.txt")
+train_activity <- read.table("./UCI HAR Dataset/train/y_train.txt")
+train_subject <- read.table("./UCI HAR Dataset/train/subject_train.txt")
+```
+
+### Step 4: Stitch training and test data.  Fix data frame names, ensure factors data types.  Tidy up data by dropping unneeded columns, and replacing activity the human-readable label.
+
+```
+# Stitch
+all_data <- rbind(test_data, train_data)
+all_activity <- rbind(test_activity, train_activity)
+all_subject <- rbind(test_subject, train_subject)
+
+# Fix labels on data
+names(all_data) <- features$V2
+
+# Fix activity labels
+library(dplyr)
+all_activity <- all_activity %>% inner_join(activity_labels, by.x = c("V1", "V1")) %>% select(-V1)
+names(all_activity) <- c("activity")
+
+# Fix subject labels
+names(all_subject) <- c("subject")
+
+# More stitching, this time collecting different variables into a single frame
+data_names <- names(all_data)
+keeper_data_names <- grep("std|mean", data_names)
+keeper_data <- all_data[keeper_data_names]
+wearable_data <- cbind(keeper_data, all_subject, all_activity)
+
+# Subjects should be factors
+wearable_data$subject <- as.factor(wearable_data$subject)
+
+# Clean up variable names
+names(wearable_data)<-gsub("[()]", "", names(wearable_data))
+names(wearable_data)<-gsub("^t", "time", names(wearable_data))
+names(wearable_data)<-gsub("^f", "frequency", names(wearable_data))
+names(wearable_data)<-gsub("-std", "Std", names(wearable_data))
+names(wearable_data)<-gsub("-mean", "Mean", names(wearable_data))
+names(wearable_data)<-gsub("Acc", "Acceleration", names(wearable_data))
+names(wearable_data)<-gsub("Mag", "Magnitude", names(wearable_data))
+names(wearable_data)<-gsub("BodyBody", "Body", names(wearable_data))
+```
+
+### Step 5: Output a tidy_data.txt containing aggregate metrics into a file for consumption
+
+Grouping performed on activity and subject.  Output to file "tidy_data.txt".
+
+```
+# Create the aggregated tidy data set
+tidy_data = aggregate(wearable_data, by=list(activity_group=wearable_data$activity, subject_group=wearable_data$subject), mean)
+str(tidy_data)
+tidy_data <- tidy_data %>% select(-subject, -activity)
+str(tidy_data)
+write.table(tidy_data, file = "tidy_data.txt", row.name=FALSE)
+```
+
+## Source Data Set Information:
+
+The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
 Here are the data for the project:
 
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
-
-## Data Set Information:
 
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
 
