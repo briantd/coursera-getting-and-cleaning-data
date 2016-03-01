@@ -8,90 +8,6 @@ The data provided in tiny_data.txt is derived from a UCI data set tracking the a
 
 From the UCI data sets, only variables of type Mean or Std (Standard Deviation) were kept, the others were discarded.  Furthermore, as there were multiple observations for each activity performed by a subject, the data was summarized by calculating the mean average for each activity and subject.
 
-## Fields included in tiny_data.txt
-
-activity_group <-- activity label representing this group
-subject_group <-- subject id representing this group
-timeBodyAccelerationMean-X
-timeBodyAccelerationMean-Y
-timeBodyAccelerationMean-Z
-timeBodyAccelerationStd-X
-timeBodyAccelerationStd-Y
-timeBodyAccelerationStd-Z
-timeGravityAccelerationMean-X
-timeGravityAccelerationMean-Y
-timeGravityAccelerationMean-Z
-timeGravityAccelerationStd-X
-timeGravityAccelerationStd-Y
-timeGravityAccelerationStd-Z
-timeBodyAccelerationJerkMean-X
-timeBodyAccelerationJerkMean-Y
-timeBodyAccelerationJerkMean-Z
-timeBodyAccelerationJerkStd-X
-timeBodyAccelerationJerkStd-Y
-timeBodyAccelerationJerkStd-Z
-timeBodyGyroMean-X
-timeBodyGyroMean-Y
-timeBodyGyroMean-Z
-timeBodyGyroStd-X
-timeBodyGyroStd-Y
-timeBodyGyroStd-Z
-timeBodyGyroJerkMean-X
-timeBodyGyroJerkMean-Y
-timeBodyGyroJerkMean-Z
-timeBodyGyroJerkStd-X
-timeBodyGyroJerkStd-Y
-timeBodyGyroJerkStd-Z
-timeBodyAccelerationMagnitudeMean
-timeBodyAccelerationMagnitudeStd
-timeGravityAccelerationMagnitudeMean
-timeGravityAccelerationMagnitudeStd
-timeBodyAccelerationJerkMagnitudeMean
-timeBodyAccelerationJerkMagnitudeStd
-timeBodyGyroMagnitudeMean
-timeBodyGyroMagnitudeStd
-timeBodyGyroJerkMagnitudeMean
-timeBodyGyroJerkMagnitudeStd
-frequencyBodyAccelerationMean-X
-frequencyBodyAccelerationMean-Y
-frequencyBodyAccelerationMean-Z
-frequencyBodyAccelerationStd-X
-frequencyBodyAccelerationStd-Y
-frequencyBodyAccelerationStd-Z
-frequencyBodyAccelerationMeanFreq-X
-frequencyBodyAccelerationMeanFreq-Y
-frequencyBodyAccelerationMeanFreq-Z
-frequencyBodyAccelerationJerkMean-X
-frequencyBodyAccelerationJerkMean-Y
-frequencyBodyAccelerationJerkMean-Z
-frequencyBodyAccelerationJerkStd-X
-frequencyBodyAccelerationJerkStd-Y
-frequencyBodyAccelerationJerkStd-Z
-frequencyBodyAccelerationJerkMeanFreq-X
-frequencyBodyAccelerationJerkMeanFreq-Y
-frequencyBodyAccelerationJerkMeanFreq-Z
-frequencyBodyGyroMean-X
-frequencyBodyGyroMean-Y
-frequencyBodyGyroMean-Z
-frequencyBodyGyroStd-X
-frequencyBodyGyroStd-Y
-frequencyBodyGyroStd-Z
-frequencyBodyGyroMeanFreq-X
-frequencyBodyGyroMeanFreq-Y
-frequencyBodyGyroMeanFreq-Z
-frequencyBodyAccelerationMagnitudeMean
-frequencyBodyAccelerationMagnitudeStd
-frequencyBodyAccelerationMagnitudeMeanFreq
-frequencyBodyAccelerationJerkMagnitudeMean
-frequencyBodyAccelerationJerkMagnitudeStd
-frequencyBodyAccelerationJerkMagnitudeMeanFreq
-frequencyBodyGyroMagnitudeMean
-frequencyBodyGyroMagnitudeStd
-frequencyBodyGyroMagnitudeMeanFreq
-frequencyBodyGyroJerkMagnitudeMean
-frequencyBodyGyroJerkMagnitudeStd
-frequencyBodyGyroJerkMagnitudeMeanFreq"
-
 ## Process for deriving tiny_data.txt
 
 ### Step 1: Retrieve raw data zipfile
@@ -185,6 +101,90 @@ tidy_data <- tidy_data %>% select(-subject, -activity)
 str(tidy_data)
 write.table(tidy_data, file = "tidy_data.txt", row.name=FALSE)
 ```
+
+## Fields included in tiny_data.txt
+
+- activity_group <-- activity label representing this group
+- subject_group <-- subject id representing this group
+- timeBodyAccelerationMean-X
+- timeBodyAccelerationMean-Y
+- timeBodyAccelerationMean-Z
+- timeBodyAccelerationStd-X
+- timeBodyAccelerationStd-Y
+- timeBodyAccelerationStd-Z
+- timeGravityAccelerationMean-X
+- timeGravityAccelerationMean-Y
+- timeGravityAccelerationMean-Z
+- timeGravityAccelerationStd-X
+- timeGravityAccelerationStd-Y
+- timeGravityAccelerationStd-Z
+- timeBodyAccelerationJerkMean-X
+- timeBodyAccelerationJerkMean-Y
+- timeBodyAccelerationJerkMean-Z
+- timeBodyAccelerationJerkStd-X
+- timeBodyAccelerationJerkStd-Y
+- timeBodyAccelerationJerkStd-Z
+- timeBodyGyroMean-X
+- timeBodyGyroMean-Y
+- timeBodyGyroMean-Z
+- timeBodyGyroStd-X
+- timeBodyGyroStd-Y
+- timeBodyGyroStd-Z
+- timeBodyGyroJerkMean-X
+- timeBodyGyroJerkMean-Y
+- timeBodyGyroJerkMean-Z
+- timeBodyGyroJerkStd-X
+- timeBodyGyroJerkStd-Y
+- timeBodyGyroJerkStd-Z
+- timeBodyAccelerationMagnitudeMean
+- timeBodyAccelerationMagnitudeStd
+- timeGravityAccelerationMagnitudeMean
+- timeGravityAccelerationMagnitudeStd
+- timeBodyAccelerationJerkMagnitudeMean
+- timeBodyAccelerationJerkMagnitudeStd
+- timeBodyGyroMagnitudeMean
+- timeBodyGyroMagnitudeStd
+- timeBodyGyroJerkMagnitudeMean
+- timeBodyGyroJerkMagnitudeStd
+- frequencyBodyAccelerationMean-X
+- frequencyBodyAccelerationMean-Y
+- frequencyBodyAccelerationMean-Z
+- frequencyBodyAccelerationStd-X
+- frequencyBodyAccelerationStd-Y
+- frequencyBodyAccelerationStd-Z
+- frequencyBodyAccelerationMeanFreq-X
+- frequencyBodyAccelerationMeanFreq-Y
+- frequencyBodyAccelerationMeanFreq-Z
+- frequencyBodyAccelerationJerkMean-X
+- frequencyBodyAccelerationJerkMean-Y
+- frequencyBodyAccelerationJerkMean-Z
+- frequencyBodyAccelerationJerkStd-X
+- frequencyBodyAccelerationJerkStd-Y
+- frequencyBodyAccelerationJerkStd-Z
+- frequencyBodyAccelerationJerkMeanFreq-X
+- frequencyBodyAccelerationJerkMeanFreq-Y
+- frequencyBodyAccelerationJerkMeanFreq-Z
+- frequencyBodyGyroMean-X
+- frequencyBodyGyroMean-Y
+- frequencyBodyGyroMean-Z
+- frequencyBodyGyroStd-X
+- frequencyBodyGyroStd-Y
+- frequencyBodyGyroStd-Z
+- frequencyBodyGyroMeanFreq-X
+- frequencyBodyGyroMeanFreq-Y
+- frequencyBodyGyroMeanFreq-Z
+- frequencyBodyAccelerationMagnitudeMean
+- frequencyBodyAccelerationMagnitudeStd
+- frequencyBodyAccelerationMagnitudeMeanFreq
+- frequencyBodyAccelerationJerkMagnitudeMean
+- frequencyBodyAccelerationJerkMagnitudeStd
+- frequencyBodyAccelerationJerkMagnitudeMeanFreq
+- frequencyBodyGyroMagnitudeMean
+- frequencyBodyGyroMagnitudeStd
+- frequencyBodyGyroMagnitudeMeanFreq
+- frequencyBodyGyroJerkMagnitudeMean
+- frequencyBodyGyroJerkMagnitudeStd
+- frequencyBodyGyroJerkMagnitudeMeanFreq
 
 ## Source Data Set Information:
 
